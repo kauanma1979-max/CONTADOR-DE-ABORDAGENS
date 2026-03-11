@@ -1,0 +1,5 @@
+{
+  "name": "Controle de Fiscalização de Motos",
+  "description": "Aplicativo para contabilizar abordagens de motos e registrar autuações de trânsito com geração de relatório PDF.",
+  "requestFramePermissions": []
+}

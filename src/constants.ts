@@ -1,0 +1,62 @@
+export const CIDADES_CAMPINAS = [
+  "AMERICANA",
+  "ARTUR NOGUEIRA",
+  "CAMPINAS",
+  "CONCHAL",
+  "COSMÓPOLIS",
+  "ENGENHEIRO COELHO",
+  "ESPIRITO SANTO DO PINHAL",
+  "ESTIVA GERBI",
+  "HOLAMBRA",
+  "HORTOLÂNDIA",
+  "INDAIATUBA",
+  "ITAPIRA",
+  "JAGUARIÚNA",
+  "LIMEIRA",
+  "MOGI GUAÇU",
+  "MOGI MIRIM",
+  "MONTE MOR",
+  "NOVA ODESSA",
+  "PAULÍNIA",
+  "PEDREIRA",
+  "SANTA BÁRBARA D'OESTE",
+  "SANTO ANTÔNIO DE POSSE",
+  "SANTO ANTONIO DO JARDIM",
+  "SUMARÉ",
+  "VALINHOS",
+  "VINHEDO"
+];
+
+export const AUTUACOES_CONDUTOR = [
+  "Art. 162, I - Dirigir veículo sem possuir CNH, PPD ou ACC. Cód. Enq: 501-00",
+  "Art. 162, II - Dirigir veículo com CNH, PPD ou ACC cassada. Cód. Enq: 502-91",
+  "Art. 162, II - Dirigir veículo com CNH, PPD ou ACC com suspensão do direito de dirigir. - Cód. Enq.: 502-92",
+  "Art. 162, III - Condutor com CNH de categoria diferente da do veículo que esteja dirigindo. - Cód. Enq.: 503-71",
+  "Art. 162, III - Dirigir veículo com PPD de categoria diferente da do veículo. - Cód. Enq.: 503-72",
+  "Art. 162, V - Dirigir veículo com validade de CNH vencida há mais de 30 dias. Cód. Enq.: 504-50",
+  "ART. 165, XX - Dirigir sob a influência de álcool. Cód. Enq: 516-91",
+  "ART. 165-A - Recusar-se a ser submetido a teste que permita certificar influência de álcool ou outra substância psicoativa. Cód. Enq: 757-90",
+  "Art. 306. Conduzir veículo automotor com capacidade psicomotora alterada em razão da influência de álcool ou de outra substância psicoativa que determine dependência - CRIME DE TRÂNSITO",
+  "Art. 169 - Dirigir sem atenção ou sem os cuidados indispensáveis à segurança. Cód.Enq: 520-70 (Capacete sem estar devidamente fixado à cabeça, de tamanho inadequado ou queixeira não abaixada ou não travada)",
+  "Art. 244, I - Conduzir motocicleta, motoneta e ciclomotor sem usar capacete de segurança ou vestuário de acordo com as normas e as especificações aprovadas pelo Contran. Cód. do Enq.:703-01",
+  "Art. 244, II - Conduzir motocicleta, motoneta e ciclomotor transportando passageiro sem capacete. Cód. Enq: 704-81",
+  "Art. 244, X - Conduzir motoc/ moton/ ciclom c/ utilização de capacete de segurança sem viseira/óculos de proteção. Cód. Enq: 768-41",
+  "Art. 244, X - Conduzir motoc/ moton/ ciclom c/ útil capacete de seg com viseira/óculos proteção em desacordo c/ regulamentação Contran. Cód. Enq: 768-42",
+  "Art. 244, XI - Conduzir motoc/ moton/ ciclom transportando passageiro c/ capacete de segurança sem viseira/óculos de proteção. Cód. Enq:771-41",
+  "Art. 244, XI - Conduzir motoc/ moton/ ciclom transportando passageiro c/ capacete seg c/ viseira/óculos proteção em desacordo c/ regulamentação Contran.Cód. Enq:771-42",
+  "Art. 252, IV - Dirigir o veículo usando calçado que não se firme nos pés/comprometa utilização pedais. Cód. Enq: 734-00"
+];
+
+export const AUTUACOES_VEICULO = [
+  "Art. 230, IV - Conduzir o veículo sem qualquer uma das placas de identificação. Cód.Enq:658-00",
+  "Art. 230, V - Conduzir o veículo que não esteja registrado. Cód. Enq: 659-91",
+  "Art. 230, V - Conduzir o veículo registrado que não esteja devidamente licenciado. Cód. Enq:659-92",
+  "Art. 230, VI - Conduzir o veículo com qualquer uma das placas sem legibilidade e visibilidade. Cód.Enq: 660-20",
+  "Art. 230, XVIII - Conduzir o veículo em mau estado de conservação, comprometendo a segurança. Cód. Enq: 672-61",
+  "Art. 230, IX - Conduzir o veículo sem equipamento obrigatório. Cód. Enq:663-71",
+  "Art. 230, IX - Conduzir o veículo com equipamento obrigatório ineficiente ou inoperante. Cód. Enq:663-72",
+  "Art. 230, XI - Conduzir o veículo com descarga livre. Cód. Enq: 665-31",
+  "Art. 230, XI - Conduzir o veículo com silenciador de motor de explosão defeituoso, deficiente ou inoperante. Cód. Enq: 665-32",
+  "Art. 230, XIII - Conduzir o veículo com equipamento do sistema de iluminação e de sinalização alterados. Cód. Enq.: 667-00",
+  "Art. 230, XXII - Conduzir o veículo com defeito no sistema de iluminação, de sinalização ou com lâmpadas queimadas. Cód.Enq: 676-90"
+];
