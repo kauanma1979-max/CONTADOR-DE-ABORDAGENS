@@ -20,6 +20,7 @@ export default function App() {
   const [selectedCondutor, setSelectedCondutor] = useState('');
   const [selectedVeiculo, setSelectedVeiculo] = useState('');
   const [autuacoes, setAutuacoes] = useState<Autuacao[]>([]);
+  const [isResetModalOpen, setIsResetModalOpen] = useState(false);
 
   // Load data from localStorage on mount
   useEffect(() => {
@@ -159,18 +160,18 @@ export default function App() {
   };
 
   const resetAll = () => {
-    // Using a custom modal logic since window.confirm might be blocked or inconsistent
-    const confirmed = window.confirm('Deseja realmente limpar todos os dados? Esta ação não pode ser desfeita.');
-    if (confirmed) {
-      setMotosCount(0);
-      setRecolhaCount(0);
-      setAutuacoes([]);
-      setEndereco('');
-      setCidade('');
-      localStorage.clear();
-      // Force immediate UI update
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    setIsResetModalOpen(true);
+  };
+
+  const confirmReset = () => {
+    setMotosCount(0);
+    setRecolhaCount(0);
+    setAutuacoes([]);
+    setEndereco('');
+    setCidade('');
+    localStorage.clear();
+    setIsResetModalOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const totalAutuacoes = autuacoes.reduce((acc, curr) => acc + curr.quantidade, 0);
@@ -408,15 +409,66 @@ export default function App() {
 
       {/* Footer Actions */}
       <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 shadow-2xl z-40">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto flex gap-3">
+          <button 
+            onClick={resetAll}
+            className="flex-1 bg-slate-100 hover:bg-red-50 text-red-600 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all active:scale-95 border border-red-100"
+          >
+            <Trash2 size={20} /> Zerar Tudo
+          </button>
           <button 
             onClick={generatePDF}
-            className="w-full bg-sky-500 hover:bg-sky-400 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-3 shadow-lg shadow-sky-100 transition-all active:scale-95"
+            className="flex-[2] bg-sky-500 hover:bg-sky-400 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-3 shadow-lg shadow-sky-100 transition-all active:scale-95"
           >
-            <FileText size={20} /> Gerar Relatório Profissional
+            <FileText size={20} /> Gerar Relatório
           </button>
         </div>
       </footer>
+
+      {/* Confirmation Modal */}
+      <AnimatePresence>
+        {isResetModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsResetModalOpen(false)}
+              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+            />
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative bg-white rounded-[2.5rem] p-8 shadow-2xl max-w-sm w-full text-center space-y-6"
+            >
+              <div className="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mx-auto">
+                <Trash2 size={40} className="text-red-500" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-2xl font-black text-slate-900">Zerar Tudo?</h3>
+                <p className="text-slate-500 font-medium">
+                  Isso irá apagar todos os contadores e autuações registradas. Esta ação não pode ser desfeita.
+                </p>
+              </div>
+              <div className="flex flex-col gap-3">
+                <button 
+                  onClick={confirmReset}
+                  className="w-full py-4 bg-red-500 hover:bg-red-600 text-white rounded-2xl font-bold shadow-lg shadow-red-100 transition-all active:scale-95"
+                >
+                  Sim, Zerar Agora
+                </button>
+                <button 
+                  onClick={() => setIsResetModalOpen(false)}
+                  className="w-full py-4 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-2xl font-bold transition-all active:scale-95"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
