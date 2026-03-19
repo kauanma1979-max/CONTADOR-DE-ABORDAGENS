@@ -241,14 +241,13 @@ export default function App() {
             <label className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
               <MapPin size={14} /> Cidade
             </label>
-            <select 
+            <input 
+              type="text"
+              placeholder="Digite o nome da cidade"
               value={cidade}
               onChange={(e) => setCidade(e.target.value)}
               className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 outline-none transition-all"
-            >
-              <option value="">Selecione a Cidade</option>
-              {CIDADES_CAMPINAS.map(c => <option key={c} value={c}>{c}</option>)}
-            </select>
+            />
           </div>
 
           <div className="space-y-2">
