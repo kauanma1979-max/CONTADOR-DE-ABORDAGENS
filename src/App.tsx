@@ -94,14 +94,14 @@ export default function App() {
     
     const startY = 65;
     doc.setFont('helvetica', 'bold');
-    doc.text('DADOS DA OPERAÇÃO', 20, startY);
+    doc.text('ENDEREÇO DA OPERAÇÃO', 20, startY);
     doc.setDrawColor(226, 232, 240); // slate-200
     doc.line(20, startY + 2, 190, startY + 2);
 
     doc.setFont('helvetica', 'normal');
     doc.text(`Data: ${data.split('-').reverse().join('/')}`, 20, startY + 12);
     doc.text(`Cidade: ${cidade || 'Não informada'}`, 20, startY + 20);
-    doc.text(`Local: ${endereco || 'Não informado'}`, 20, startY + 28);
+    doc.text(`Endereço: ${endereco || 'Não informado'}`, 20, startY + 28);
 
     // Stats Cards (Visual)
     doc.setFillColor(248, 250, 252); // slate-50
