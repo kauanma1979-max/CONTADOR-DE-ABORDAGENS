@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Plus, Minus, FileText, Save, MapPin, Calendar, Bike, Trash2 } from 'lucide-react';
+import { Plus, Minus, FileText, Save, MapPin, Calendar, Bike, Trash2, Users, UserCheck, Car } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -17,6 +17,10 @@ export default function App() {
   const [cidade, setCidade] = useState('');
   const [data, setData] = useState(new Date().toISOString().split('T')[0]);
   const [endereco, setEndereco] = useState('');
+  const [parceiros, setParceiros] = useState('');
+  const [responsavel, setResponsavel] = useState('');
+  const [qtdEfetivo, setQtdEfetivo] = useState('');
+  const [qtdViaturas, setQtdViaturas] = useState('');
   const [selectedCondutor, setSelectedCondutor] = useState('');
   const [selectedVeiculo, setSelectedVeiculo] = useState('');
   const [autuacoes, setAutuacoes] = useState<Autuacao[]>([]);
@@ -29,12 +33,20 @@ export default function App() {
     const savedAutuacoes = localStorage.getItem('autuacoes');
     const savedCidade = localStorage.getItem('cidade');
     const savedEndereco = localStorage.getItem('endereco');
+    const savedParceiros = localStorage.getItem('parceiros');
+    const savedResponsavel = localStorage.getItem('responsavel');
+    const savedQtdEfetivo = localStorage.getItem('qtdEfetivo');
+    const savedQtdViaturas = localStorage.getItem('qtdViaturas');
 
     if (savedMotos) setMotosCount(parseInt(savedMotos));
     if (savedRecolha) setRecolhaCount(parseInt(savedRecolha));
     if (savedAutuacoes) setAutuacoes(JSON.parse(savedAutuacoes));
     if (savedCidade) setCidade(savedCidade);
     if (savedEndereco) setEndereco(savedEndereco);
+    if (savedParceiros) setParceiros(savedParceiros);
+    if (savedResponsavel) setResponsavel(savedResponsavel);
+    if (savedQtdEfetivo) setQtdEfetivo(savedQtdEfetivo);
+    if (savedQtdViaturas) setQtdViaturas(savedQtdViaturas);
   }, []);
 
   // Save data to localStorage on change
@@ -44,7 +56,11 @@ export default function App() {
     localStorage.setItem('autuacoes', JSON.stringify(autuacoes));
     localStorage.setItem('cidade', cidade);
     localStorage.setItem('endereco', endereco);
-  }, [motosCount, recolhaCount, autuacoes, cidade, endereco]);
+    localStorage.setItem('parceiros', parceiros);
+    localStorage.setItem('responsavel', responsavel);
+    localStorage.setItem('qtdEfetivo', qtdEfetivo);
+    localStorage.setItem('qtdViaturas', qtdViaturas);
+  }, [motosCount, recolhaCount, autuacoes, cidade, endereco, parceiros, responsavel, qtdEfetivo, qtdViaturas]);
 
   const handleAddAutuacao = (tipo: 'CONDUTOR' | 'VEÍCULO') => {
     const descricao = tipo === 'CONDUTOR' ? selectedCondutor : selectedVeiculo;
@@ -103,25 +119,28 @@ export default function App() {
     doc.text(`Data: ${data.split('-').reverse().join('/')}`, 20, startY + 12);
     doc.text(`Cidade: ${cidade || 'Não informada'}`, 20, startY + 20);
     doc.text(`Endereço: ${endereco || 'Não informado'}`, 20, startY + 28);
+    doc.text(`Parceiros: ${parceiros || 'Não informado'}`, 20, startY + 36);
+    doc.text(`Responsável: ${responsavel || 'Não informado'}`, 20, startY + 44);
+    doc.text(`Efetivo: ${qtdEfetivo || '0'} | Viaturas: ${qtdViaturas || '0'}`, 20, startY + 52);
 
     // Stats Cards (Visual)
     doc.setFillColor(248, 250, 252); // slate-50
-    doc.roundedRect(20, startY + 38, 50, 25, 3, 3, 'F');
-    doc.roundedRect(80, startY + 38, 50, 25, 3, 3, 'F');
-    doc.roundedRect(140, startY + 38, 50, 25, 3, 3, 'F');
+    doc.roundedRect(20, startY + 62, 50, 25, 3, 3, 'F');
+    doc.roundedRect(80, startY + 62, 50, 25, 3, 3, 'F');
+    doc.roundedRect(140, startY + 62, 50, 25, 3, 3, 'F');
 
     doc.setFontSize(9);
     doc.setTextColor(100, 116, 139); // slate-500
-    doc.text('MOTOS ABORDADAS', 45, startY + 46, { align: 'center' });
-    doc.text('RECOLHAS', 105, startY + 46, { align: 'center' });
-    doc.text('TOTAL AUTUAÇÕES', 165, startY + 46, { align: 'center' });
+    doc.text('MOTOS ABORDADAS', 45, startY + 70, { align: 'center' });
+    doc.text('RECOLHAS', 105, startY + 70, { align: 'center' });
+    doc.text('TOTAL AUTUAÇÕES', 165, startY + 70, { align: 'center' });
 
     doc.setFontSize(16);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(15, 23, 42); // slate-900
-    doc.text(motosCount.toString(), 45, startY + 56, { align: 'center' });
-    doc.text(recolhaCount.toString(), 105, startY + 56, { align: 'center' });
-    doc.text(autuacoes.reduce((acc, curr) => acc + curr.quantidade, 0).toString(), 165, startY + 56, { align: 'center' });
+    doc.text(motosCount.toString(), 45, startY + 80, { align: 'center' });
+    doc.text(recolhaCount.toString(), 105, startY + 80, { align: 'center' });
+    doc.text(autuacoes.reduce((acc, curr) => acc + curr.quantidade, 0).toString(), 165, startY + 80, { align: 'center' });
 
     // Table
     const tableData = autuacoes.map(a => [
@@ -131,7 +150,7 @@ export default function App() {
     ]);
     
     autoTable(doc, {
-      startY: startY + 75,
+      startY: startY + 95,
       head: [['Qtd', 'Tipo', 'Descrição da Infração']],
       body: tableData,
       theme: 'striped',
@@ -169,6 +188,10 @@ export default function App() {
     setAutuacoes([]);
     setEndereco('');
     setCidade('');
+    setParceiros('');
+    setResponsavel('');
+    setQtdEfetivo('');
+    setQtdViaturas('');
     localStorage.clear();
     setIsResetModalOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -272,6 +295,58 @@ export default function App() {
               placeholder="Ex: Av. Francisco Glicério, 1234"
               value={endereco}
               onChange={(e) => setEndereco(e.target.value)}
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 outline-none transition-all"
+            />
+          </div>
+
+          <div className="md:col-span-2 space-y-2">
+            <label className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
+              <Users size={14} /> Parceiros
+            </label>
+            <input 
+              type="text"
+              placeholder="Ex: PM, Guarda Municipal, etc."
+              value={parceiros}
+              onChange={(e) => setParceiros(e.target.value)}
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 outline-none transition-all"
+            />
+          </div>
+
+          <div className="md:col-span-2 space-y-2">
+            <label className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
+              <UserCheck size={14} /> Nome Completo Responsável
+            </label>
+            <input 
+              type="text"
+              placeholder="Digite o nome do responsável"
+              value={responsavel}
+              onChange={(e) => setResponsavel(e.target.value)}
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 outline-none transition-all"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
+              <Users size={14} /> Qtd Efetivo
+            </label>
+            <input 
+              type="number"
+              placeholder="0"
+              value={qtdEfetivo}
+              onChange={(e) => setQtdEfetivo(e.target.value)}
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 outline-none transition-all"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
+              <Car size={14} /> Qtd Viaturas
+            </label>
+            <input 
+              type="number"
+              placeholder="0"
+              value={qtdViaturas}
+              onChange={(e) => setQtdViaturas(e.target.value)}
               className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 outline-none transition-all"
             />
           </div>
